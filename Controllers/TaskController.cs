@@ -43,19 +43,21 @@ namespace Lista_de_Tarefas.Controllers
             
         }
 
-        //[HttpGet("{id}")]
-        //public async IActionResult GetTask()
-        //{
-        //    try
-        //    {
-        //        TaskModel p = await _context.TB_TASK
-        //            .FirstOrDefaultAsync(pBusca => pBusca.Id == Id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSingle(int id)
+        {
+            try
+            {
+                TaskModel p = await _context.TB_TASK
+                    .FirstOrDefaultAsync(pBusca => pBusca.Id == id);
+                
+                return Ok(p);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPut("{id}")]
         public IActionResult UpdateTask(int id, TaskModel task)

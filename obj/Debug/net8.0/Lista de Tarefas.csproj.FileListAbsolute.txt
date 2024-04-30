@@ -135,3 +135,4 @@ C:\Users\Wellington\Desktop\Lista de Tarefas\obj\Debug\net8.0\refint\Lista de Ta
 C:\Users\Wellington\Desktop\Lista de Tarefas\obj\Debug\net8.0\Lista de Tarefas.pdb
 C:\Users\Wellington\Desktop\Lista de Tarefas\obj\Debug\net8.0\Lista de Tarefas.genruntimeconfig.cache
 C:\Users\Wellington\Desktop\Lista de Tarefas\obj\Debug\net8.0\ref\Lista de Tarefas.dll
+C:\Users\Wellington\Desktop\Lista de Tarefas\obj\Debug\net8.0\Lista de Tarefas.sourcelink.json
