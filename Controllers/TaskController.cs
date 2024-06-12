@@ -1,4 +1,5 @@
 ﻿using Lista_de_Tarefas.Data;
+using Lista_de_Tarefas.Data.Map;
 using Lista_de_Tarefas.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,11 +37,17 @@ namespace Lista_de_Tarefas.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTask()
+        public async Task<IActionResult> GetTask()
         {
-
-            return Ok();
-            
+            try
+            {
+                List<TaskModel> lista = await _context.TB_TASK.ToListAsync();
+                return Ok(lista);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
         [HttpGet("{id}")]
@@ -66,9 +73,14 @@ namespace Lista_de_Tarefas.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteTask(int id)
+        public async IActionResult DeleteTask(int id)
         {
-            return Ok();
+            try
+            {
+                TaskMap? tkRemove = await _context.TB_TASK
+                    .FirstOrDefaultAsync(phBusca => phBusca.);
+            }
+            
         }
 
 

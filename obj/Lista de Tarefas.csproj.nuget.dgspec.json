@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Wellington\\Desktop\\Lista de Tarefas\\Lista de Tarefas.csproj": {}
+    "D:\\2DS\\WellGui\\lista-de-tarefas\\Lista de Tarefas.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Wellington\\Desktop\\Lista de Tarefas\\Lista de Tarefas.csproj": {
+    "D:\\2DS\\WellGui\\lista-de-tarefas\\Lista de Tarefas.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Wellington\\Desktop\\Lista de Tarefas\\Lista de Tarefas.csproj",
+        "projectUniqueName": "D:\\2DS\\WellGui\\lista-de-tarefas\\Lista de Tarefas.csproj",
         "projectName": "Lista de Tarefas",
-        "projectPath": "C:\\Users\\Wellington\\Desktop\\Lista de Tarefas\\Lista de Tarefas.csproj",
-        "packagesPath": "C:\\Users\\Wellington\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Wellington\\Desktop\\Lista de Tarefas\\obj\\",
+        "projectPath": "D:\\2DS\\WellGui\\lista-de-tarefas\\Lista de Tarefas.csproj",
+        "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
+        "outputPath": "D:\\2DS\\WellGui\\lista-de-tarefas\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Wellington\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\etechas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -84,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
