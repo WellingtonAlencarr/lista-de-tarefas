@@ -61,6 +61,7 @@ namespace Lista_de_Tarefas.Repositories
 
             _context.TB_USER.Remove(userById);
             await _context.SaveChangesAsync();
+
             return true;
         }
     }

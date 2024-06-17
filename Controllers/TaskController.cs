@@ -1,88 +1,59 @@
-﻿using Lista_de_Tarefas.Data;
-using Lista_de_Tarefas.Data.Map;
-using Lista_de_Tarefas.Models;
+﻿using Lista_de_Tarefas.Models;
+using Lista_de_Tarefas.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using System.Runtime.InteropServices;
-
 
 namespace Lista_de_Tarefas.Controllers
 {
-    [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
+    [ApiController]
     public class TaskController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ITaskRepository _taskRepository;
 
-        public TaskController(DataContext context)
+        public TaskController(ITaskRepository taskRepository)
         {
-            _context = context;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(TaskModel newTask)
-        {
-            try
-            {
-                await _context.TB_TASK.AddAsync(newTask);
-                await _context.SaveChangesAsync();
-
-                return Ok(newTask.Id);
-            }
-            catch (System.Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _taskRepository = taskRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTask()
+        public async Task<ActionResult<List<TaskModel>>> GetAllTasks()
         {
-            try
-            {
-                List<TaskModel> lista = await _context.TB_TASK.ToListAsync();
-                return Ok(lista);
-            }
-            catch (System.Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }            
+            List<TaskModel> tasks = await _taskRepository.GetAllTasks();
+            return Ok(tasks);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSingle(int id)
+        public async Task<ActionResult<TaskModel>> GetById(int id)
         {
-            try
-            {
-                TaskModel p = await _context.TB_TASK
-                    .FirstOrDefaultAsync(pBusca => pBusca.Id == id);
-                
-                return Ok(p);
-            }
-            catch (System.Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            TaskModel task = await _taskRepository.GetById(id);
+            return Ok(task);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<TaskModel>> Create([FromBody] TaskModel taskModel)
+        {
+            TaskModel task = await _taskRepository.Add(taskModel);
+
+            return Ok(task);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateTask(int id, TaskModel task)
+        public async Task<ActionResult<TaskModel>> Update([FromBody] TaskModel taskModel, int id)
         {
-            return Ok();
+            taskModel.Id = id;
+            TaskModel task = await _taskRepository.Update(taskModel, id);
+
+            return Ok(task);
         }
 
         [HttpDelete("{id}")]
-        public async IActionResult DeleteTask(int id)
+        public async Task<ActionResult<TaskModel>> Delete(int id)
         {
-            try
-            {
-                TaskMap? tkRemove = await _context.TB_TASK
-                    .FirstOrDefaultAsync(phBusca => phBusca.);
-            }
-            
+            bool delete = await _taskRepository.Delete(id);
+
+            return Ok(delete);
         }
-
-
     }
 }
