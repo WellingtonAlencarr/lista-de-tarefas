@@ -9,6 +9,7 @@ namespace Lista_de_Tarefas.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
+
         public UserRepository(DataContext dataContext) 
         {
             _context = dataContext;

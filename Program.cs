@@ -14,7 +14,7 @@ namespace Lista_de_Tarefas
     {
         static void Main(string[] args)
         {
-            string secretKey = "1fd68020-7d20-4d40-89de-43079253ad0f";
+            string secretKey = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
 
             var builder = WebApplication.CreateBuilder(args);
 
@@ -60,10 +60,9 @@ namespace Lista_de_Tarefas
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "sua_empresa",
-                    ValidAudience = "sua_aplicação",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-                    
+                    ValidIssuer = "",
+                    ValidAudience = "",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))    
                 };
             });
 
