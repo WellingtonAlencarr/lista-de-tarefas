@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 
+
 namespace Lista_de_Tarefas
 {
     public class Program
@@ -20,25 +21,6 @@ namespace Lista_de_Tarefas
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Sistema de tarefas - API", Version = "v1" });
-
-                var securitySchema = new OpenApiSecurityScheme
-                {
-                    Name = "JWT Authentication",
-                    Description = "Entre com o JWT Bearer token",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    Reference = new OpenApiReference
-                    {
-                        Id = JwtBearerDefaults.AuthenticationScheme,
-                        Type = ReferenceType.SecurityScheme
-                    }
-                };
-            });
 
             builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DataContext>(options =>
             {
