@@ -1,5 +1,4 @@
 ﻿using Lista_de_Tarefas.Models.Enums;
-using System.Data.SqlTypes;
 
 namespace Lista_de_Tarefas.Models
 {
@@ -12,7 +11,7 @@ namespace Lista_de_Tarefas.Models
         public string ExpirationDate { get; set; }
         public StatusTask Status { get; set; }
         public int? UserId { get; set; }
-        public virtual UserModel? User { get; set; }
+        public UserModel? User { get; set; }
 
     }
 }

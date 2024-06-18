@@ -2,11 +2,6 @@
 using Lista_de_Tarefas.Data;
 using Lista_de_Tarefas.Repositories.Interfaces;
 using Lista_de_Tarefas.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Security.Cryptography;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.OpenApi.Models;
 
 
 namespace Lista_de_Tarefas
@@ -15,12 +10,14 @@ namespace Lista_de_Tarefas
     {
         static void Main(string[] args)
         {
-            string secretKey = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
-
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddControllers().AddNewtonsoftJson(options => 
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             builder.Services.AddEntityFrameworkSqlServer().AddDbContext<DataContext>(options =>
             {
@@ -30,23 +27,6 @@ namespace Lista_de_Tarefas
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "",
-                    ValidAudience = "",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))    
-                };
-            });
 
             var app = builder.Build();
 
@@ -58,7 +38,6 @@ namespace Lista_de_Tarefas
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

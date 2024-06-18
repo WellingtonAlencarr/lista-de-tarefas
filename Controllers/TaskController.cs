@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lista_de_Tarefas.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TaskController : ControllerBase
     {

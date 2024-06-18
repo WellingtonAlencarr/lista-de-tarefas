@@ -2,12 +2,11 @@
 using Lista_de_Tarefas.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
+
 
 namespace Lista_de_Tarefas.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -32,10 +31,10 @@ namespace Lista_de_Tarefas.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<UserModel>> Create([FromBody] UserModel userModel)
+        [HttpPost("Register")]
+        public async Task<IActionResult> RegisterUser(UserModel userModel)
         {
-            UserModel user = await _userRepository.Add(userModel);
+            UserModel user = await _userRepository.RegisterUser(userModel);
 
             return Ok(user);
         }
@@ -55,6 +54,14 @@ namespace Lista_de_Tarefas.Controllers
             bool delete = await _userRepository.Delete(id);
 
             return Ok(delete);
+        }
+
+        [HttpPost("Auth")]
+        public async Task<IActionResult> Auth(UserModel credentials)
+        {
+            UserModel user = await _userRepository.Auth(credentials);
+
+            return Ok(Auth);
         }
     }
 }

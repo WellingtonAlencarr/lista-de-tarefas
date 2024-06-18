@@ -1,5 +1,4 @@
-﻿using Lista_de_Tarefas.Data.Map;
-using Lista_de_Tarefas.Models;
+﻿using Lista_de_Tarefas.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lista_de_Tarefas.Data
@@ -16,10 +15,14 @@ namespace Lista_de_Tarefas.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserMap());
-            modelBuilder.ApplyConfiguration(new TaskMap());
-            
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TaskModel>().ToTable("TB_TASKS");
+            modelBuilder.Entity<UserModel>().ToTable("TB_USERS");
+
+            modelBuilder.Entity<UserModel>()
+                .HasMany(e => e.Tasks)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired(false);
         }
     }
 }

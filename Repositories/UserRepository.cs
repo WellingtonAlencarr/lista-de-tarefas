@@ -1,6 +1,7 @@
 ﻿using Lista_de_Tarefas.Data;
 using Lista_de_Tarefas.Models;
 using Lista_de_Tarefas.Repositories.Interfaces;
+using Lista_de_Tarefas.Utils;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -25,8 +26,16 @@ namespace Lista_de_Tarefas.Repositories
             return await _context.TB_USER.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<UserModel> Add(UserModel user)
+        public async Task<UserModel> RegisterUser(UserModel user)
         {
+            if (await ExistingUser(user.Username))
+                throw new System.Exception("Nome de usuário já existe");
+
+            Criptografia.CriarPasswordHash(user.PasswordString, out byte[] hash, out byte[] salt);
+            user.PasswordString = string.Empty;
+            user.PasswordHash = hash;
+            user.PasswordSalt = salt;
+
             await _context.TB_USER.AddAsync(user);
             await _context.SaveChangesAsync();
 
@@ -64,6 +73,35 @@ namespace Lista_de_Tarefas.Repositories
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<bool> ExistingUser(string username)
+        {
+            if(await _context.TB_USER.AnyAsync(x => x.Username.ToLower() == username.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<UserModel> Auth(UserModel credentials)
+        {
+            UserModel? user = await _context.TB_USER
+                .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credentials.Username.ToLower()));
+
+            if (user == null)
+            {
+                throw new System.Exception("Usuário não encontrado.");
+            }
+            else if (!Criptografia
+                .VerificarPasswordHash(credentials.PasswordString, user.PasswordHash, user.PasswordSalt))
+            {
+                throw new System.Exception("Senha incorreta.");
+            }
+            else
+            {
+                return user;
+            }
         }
     }
 }

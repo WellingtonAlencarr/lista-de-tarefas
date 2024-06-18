@@ -6,8 +6,11 @@ namespace Lista_de_Tarefas.Repositories.Interfaces
     {
         Task<List<UserModel>> GetAllUsers();
         Task<UserModel> GetById(int id);
-        Task<UserModel> Add(UserModel user);
+        Task<UserModel> RegisterUser(UserModel user);
         Task<UserModel> Update(UserModel user, int id);
         Task<bool> Delete(int id);
+        Task<bool> ExistingUser(string username);
+        Task<UserModel> Auth(UserModel credentials);
+
     }
 }

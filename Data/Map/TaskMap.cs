@@ -1,6 +1,5 @@
 ﻿using Lista_de_Tarefas.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Lista_de_Tarefas.Data.Map
